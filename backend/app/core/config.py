@@ -10,10 +10,10 @@ class DatabaseConfig(BaseModel):
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
-        env_file=(".env.example", ".env"),
+        env_file=("app/.env.example", "app/.env"),
         case_sensitive=False,
         env_nested_delimiter="__",
-        env_prefix="APP_",
+        env_prefix="APPLICATION__",
     )
 
     db: DatabaseConfig
