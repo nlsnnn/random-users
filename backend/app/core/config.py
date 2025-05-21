@@ -1,0 +1,22 @@
+from pydantic import BaseModel, PostgresDsn
+from pydantic_settings import BaseSettings, SettingsConfigDict
+
+
+class DatabaseConfig(BaseModel):
+    url: PostgresDsn
+    pool_size: int = 50
+    max_overflow: int = 10
+
+
+class Settings(BaseSettings):
+    model_config = SettingsConfigDict(
+        env_file=(".env.example", ".env"),
+        case_sensitive=False,
+        env_nested_delimiter="__",
+        env_prefix="APP_",
+    )
+
+    db: DatabaseConfig
+
+
+settings = Settings()
