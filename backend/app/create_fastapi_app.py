@@ -5,11 +5,13 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.services.random_user.random_api import RandomUserAPI
 from app.core.config import settings
 from app.api import register_routers
+from app.utils.db_start import check_and_fill_db
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     await app.state.random_api.init_session()
+    await check_and_fill_db(app)
     yield
     await app.state.random_api.close_session()
 
