@@ -1,0 +1,2 @@
+class RandomUserException(Exception):
+    pass
