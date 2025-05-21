@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Query
 
 from app.core.dependencies import DependsSession, DependsRandomAPI
 from app.api.users.service import UserService
@@ -9,8 +9,10 @@ router = APIRouter(prefix="/users", tags=["Users"])
 
 
 @router.get("/")
-async def get_users(db: DependsSession):
-    return await UserService.get_all_users(db)
+async def list_users(
+    db: DependsSession, page: int = Query(1, ge=1), size: int = Query(50, ge=1, le=200)
+):
+    return await UserService.get_users_paginated(db, page, size)
 
 
 @router.get("/random")
