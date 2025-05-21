@@ -1,4 +1,5 @@
 from fastapi import APIRouter, FastAPI
+from app.api.users.router import router as users_router
 
 
 def register_routers(app: FastAPI):
@@ -9,3 +10,4 @@ def register_routers(app: FastAPI):
         return {"message": "Pong!"}
 
     app.include_router(root_router)
+    app.include_router(users_router)
