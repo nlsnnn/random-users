@@ -22,7 +22,11 @@ class DatabaseHelper:
 
     async def session_getter(self) -> AsyncGenerator[AsyncSession, None]:
         async with self.session_maker() as session:
-            yield session
+            try:
+                yield session
+            except Exception as e:
+                await session.rollback()
+                raise e
 
 
 db_helper = DatabaseHelper(

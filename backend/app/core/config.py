@@ -1,9 +1,9 @@
-from pydantic import BaseModel, PostgresDsn
+from pydantic import BaseModel
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class DatabaseConfig(BaseModel):
-    url: PostgresDsn
+    url: str
     pool_size: int = 50
     max_overflow: int = 10
 
