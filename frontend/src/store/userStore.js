@@ -15,7 +15,7 @@ class UserStore {
   async getUsers(page = 1) {
     const data = await UserService.getUsers(page, this.size);
     this.page = page;
-    this.totalPages = data.total / this.size;
+    this.totalPages = Math.ceil(data.total / this.size);
     this.users = data.items;
   }
 
