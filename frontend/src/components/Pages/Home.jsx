@@ -1,4 +1,5 @@
 import { AddPerson } from "../Features/AddPerson/AddPerson";
+import { PeopleTable } from "../Features/Table/PeopleTable";
 import { Header } from "../UI/Header";
 
 export const Home = () => {
@@ -13,6 +14,7 @@ export const Home = () => {
           <div>
             <AddPerson />
           </div>
+          <PeopleTable />
         </div>
       </main>
     </>
