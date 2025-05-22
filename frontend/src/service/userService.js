@@ -2,7 +2,7 @@ import { apiClient } from "../api/client";
 
 export class UserService {
   static async getUsers(page = 1, size = 10) {
-    const response = await apiClient.get("/users", {
+    const response = await apiClient.get("/users/", {
       params: { page: page, size: size },
     });
     return response.data;
