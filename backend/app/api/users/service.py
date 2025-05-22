@@ -28,7 +28,8 @@ class UserService:
 
     @staticmethod
     async def get_user_by_id(db: AsyncSession, user_id: int):
-        return await get_user_by_id(db, user_id)
+        user = await get_user_by_id(db, user_id)
+        return UserRead.model_validate(user)
 
     @staticmethod
     async def add_users(
@@ -42,4 +43,4 @@ class UserService:
     async def get_random_user(random_api: RandomUserAPI, db: AsyncSession):
         user = (await random_api.fetch_random_users(1))[0]
         await create_user(db, UserCreate.model_validate(user.model_dump()))
-        return user
+        return UserRead.model_validate(user.model_dump())
