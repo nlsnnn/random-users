@@ -1,8 +1,16 @@
+import { useEffect } from "react";
 import { AddPerson } from "../Features/AddPerson/AddPerson";
 import { PeopleTable } from "../Features/Table/PeopleTable";
 import { Header } from "../UI/Header";
+import { userStore } from "../../store/userStore";
+import { observer } from "mobx-react-lite";
 
-export const Home = () => {
+export const Home = observer(() => {
+  useEffect(() => {
+    document.title = "Главная страница";
+    userStore.getUsers(userStore.page);
+  }, []);
+
   return (
     <>
       <Header />
@@ -19,4 +27,4 @@ export const Home = () => {
       </main>
     </>
   );
-};
+});
