@@ -5,8 +5,9 @@ from app.crud.users import (
     get_user_by_id,
     get_users_paginated,
     create_user,
+    add_users,
 )
-from app.core.schemas.user import UserCreate, UserRead
+from app.core.schemas.user import UserCreate, UserRead, UserCreateRequest
 from app.services.random_user import RandomUserAPI
 from app.core.schemas.pagination import Pagination
 
@@ -30,8 +31,12 @@ class UserService:
         return await get_user_by_id(db, user_id)
 
     @staticmethod
-    async def create_user(db: AsyncSession, user_data: UserCreate):
-        return await create_user(db, user_data)
+    async def add_users(
+        random_api: RandomUserAPI, db: AsyncSession, data: UserCreateRequest
+    ):
+        items = await random_api.fetch_random_users(data.count)
+        users = [UserCreate.model_validate(user.model_dump()) for user in items]
+        return await add_users(db, users)
 
     @staticmethod
     async def get_random_user(random_api: RandomUserAPI, db: AsyncSession):

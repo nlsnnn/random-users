@@ -17,3 +17,7 @@ class UserRead(UserBase):
 
 class UserCreate(UserBase):
     pass
+
+
+class UserCreateRequest(BaseModel):
+    count: int

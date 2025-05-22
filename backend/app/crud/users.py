@@ -34,3 +34,11 @@ async def create_user(db: AsyncSession, user_data: UserCreate) -> User:
     db.add(user)
     await db.commit()
     return user
+
+
+async def add_users(db: AsyncSession, users: list[UserCreate]) -> list[UserCreate]:
+    for user in users:
+        orm = User(**user.model_dump())
+        db.add(orm)
+    await db.commit()
+    return users

@@ -2,7 +2,7 @@ from fastapi import APIRouter, Query
 
 from app.core.dependencies import DependsSession, DependsRandomAPI
 from app.api.users.service import UserService
-from app.core.schemas.user import UserCreate
+from app.core.schemas.user import UserCreateRequest
 
 
 router = APIRouter(prefix="/users", tags=["Users"])
@@ -26,5 +26,7 @@ async def get_user(user_id: int, db: DependsSession):
 
 
 @router.post("/")
-async def create_user(user_data: UserCreate, db: DependsSession):
-    return await UserService.create_user(db, user_data)
+async def add_users(
+    data: UserCreateRequest, random_api: DependsRandomAPI, db: DependsSession
+):
+    return await UserService.add_users(random_api, db, data)
