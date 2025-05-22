@@ -4,6 +4,7 @@ import { PeopleTable } from "../Features/Table/PeopleTable";
 import { Header } from "../UI/Header";
 import { userStore } from "../../store/userStore";
 import { observer } from "mobx-react-lite";
+import { Pagination } from "../Features/Pagination";
 
 export const Home = observer(() => {
   useEffect(() => {
@@ -22,7 +23,10 @@ export const Home = observer(() => {
           <div>
             <AddPerson />
           </div>
-          <PeopleTable />
+          <div className="flex flex-col gap-4">
+            <PeopleTable />
+            <Pagination />
+          </div>
         </div>
       </main>
     </>
