@@ -8,11 +8,11 @@ export const AddPerson = () => {
   const handleChange = (e) => {
     const value = e.target.value;
 
-    if (/^\d*$/.test(value) && Number(value) <= 500) {
+    if (/^\d*$/.test(value) && Number(value) <= 100) {
       setCount(value);
       setError("");
     } else {
-      setError("Введите только положительное число (меньше 500)");
+      setError("Введите только положительное число (меньше 100)");
     }
   };
 
@@ -32,7 +32,7 @@ export const AddPerson = () => {
       <input
         type="number"
         min="1"
-        max="500"
+        max="100"
         placeholder="Введите кол-во"
         className="p-[15px] flex w-full min-w-0 h-14 flex-1 text-muted bg-slate-50 resize-none overflow-hidden rounded-xl focus:outline-0 focus:ring-0 border border-[var(--color-border)] focus:border-[var(--color-border)] placeholder:text-[var(--color-border)]"
         value={count}

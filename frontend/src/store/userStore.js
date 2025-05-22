@@ -100,6 +100,7 @@ class UserStore {
     } catch (e) {
       runInAction(() => {
         this.error = "Ошибка добавления пользователей";
+        alert("Ошибка добавления пользователей. Попробуйте еще раз.");
       });
     } finally {
       runInAction(() => {
