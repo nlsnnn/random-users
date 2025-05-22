@@ -8,8 +8,6 @@ export const User = observer(({ isRandom = false }) => {
   const { userId } = useParams();
 
   useEffect(() => {
-    userStore.user = null;
-
     if (isRandom) {
       document.title = "Случайный пользователь";
       userStore.getRandomUser();
@@ -19,7 +17,7 @@ export const User = observer(({ isRandom = false }) => {
     }
   }, [isRandom, userId]);
 
-  if (!userStore.user) {
+  if (userStore.isLoading) {
     return (
       <>
         <Header />
@@ -28,6 +26,35 @@ export const User = observer(({ isRandom = false }) => {
         </main>
       </>
     );
+  }
+
+  if (userStore.error) {
+    return (
+      <>
+        <Header />
+        <main className="container mx-auto px-4 py-8">
+          <div className="text-red-600">
+            <p>
+              Не удалось получить данные:{" "}
+              {userStore.error.message || userStore.error}
+            </p>
+            <button
+              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition duration-300 cursor-pointer"
+              onClick={() => {
+                if (isRandom) userStore.getRandomUser();
+                else userStore.getUserById(userId);
+              }}
+            >
+              Повторить
+            </button>
+          </div>
+        </main>
+      </>
+    );
+  }
+
+  if (!userStore.user) {
+    return null;
   }
 
   const { id, name, lastName, gender, phoneNumber, email, address, photo } =
