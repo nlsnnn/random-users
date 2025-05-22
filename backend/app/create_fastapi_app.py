@@ -6,6 +6,7 @@ from app.services.random_user.random_api import RandomUserAPI
 from app.core.config import settings
 from app.api import register_routers
 from app.utils.db_start import check_and_fill_db
+from app.api.error_handlers import register_error_handlers
 
 
 @asynccontextmanager
@@ -29,6 +30,7 @@ def create_app() -> FastAPI:
         allow_headers=["*"],
     )
 
+    register_error_handlers(app)
     register_routers(app)
 
     return app
