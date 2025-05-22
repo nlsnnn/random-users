@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { userStore } from "../../../store/userStore";
+import { observer } from "mobx-react-lite";
 
-export const AddPerson = () => {
+export const AddPerson = observer(() => {
   const [count, setCount] = useState("");
   const [error, setError] = useState("");
 
@@ -42,10 +43,10 @@ export const AddPerson = () => {
       <button
         onClick={handleAdd}
         className="flex min-w-[84px] max-w-[480px] bg-[var(--color-primary)] h-10 px-4 text-white text-sm font-bold cursor-pointer items-center justify-center overflow-hidden rounded-full hover:bg-[var(--color-muted)] transition duration-300"
-        disabled={!count || !!error}
+        disabled={!count || !!error || userStore.isLoading}
       >
-        Добавить
+        {userStore.isLoading ? "Загрузка..." : "Добавить"}
       </button>
     </div>
   );
-};
+});
