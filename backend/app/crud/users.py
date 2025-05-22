@@ -15,7 +15,7 @@ async def get_all_users(db: AsyncSession) -> Sequence[User]:
 async def get_users_paginated(
     db: AsyncSession, *, skip: int = 0, limit: int = 50
 ) -> tuple[list[User], int]:
-    q = select(User).offset(skip).limit(limit)
+    q = select(User).order_by(User.id.desc()).offset(skip).limit(limit)
     result = await db.execute(q)
     items = result.scalars().all()
 

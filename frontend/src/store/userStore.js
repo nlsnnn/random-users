@@ -96,9 +96,7 @@ class UserStore {
     });
     try {
       const data = await UserService.addUsers(count);
-      runInAction(() => {
-        this.users = [...this.users, ...data];
-      });
+      alert("Пользователи добавлены!");
     } catch (e) {
       runInAction(() => {
         this.error = "Ошибка добавления пользователей";
