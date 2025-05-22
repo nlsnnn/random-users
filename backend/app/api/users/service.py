@@ -42,5 +42,5 @@ class UserService:
     @staticmethod
     async def get_random_user(random_api: RandomUserAPI, db: AsyncSession):
         user = (await random_api.fetch_random_users(1))[0]
-        await create_user(db, UserCreate.model_validate(user.model_dump()))
-        return UserRead.model_validate(user.model_dump())
+        orm_user = await create_user(db, UserCreate.model_validate(user.model_dump()))
+        return UserRead.model_validate(orm_user)

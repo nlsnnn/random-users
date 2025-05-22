@@ -33,6 +33,7 @@ async def create_user(db: AsyncSession, user_data: UserCreate) -> User:
     user = User(**user_data.model_dump())
     db.add(user)
     await db.commit()
+    await db.refresh(user)
     return user
 
 
